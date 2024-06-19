@@ -52,8 +52,7 @@ export class ShoppingCartController {
 
             return res.status(200).json({
                 code: 200,
-                message: "Produto removido com sucesso",
-                location: "/shoppingCart/delete"
+                message: "Produto removido com sucesso"
             });
 
         } catch (error) {

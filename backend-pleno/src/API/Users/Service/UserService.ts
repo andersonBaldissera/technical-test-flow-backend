@@ -33,8 +33,7 @@ export class UserService{
         if(!hasEmployee) {
             throw new HttpError({
                 message: "Usuário não encontrado ou não existe",
-                statusCode: 404,
-                location: "/user/delete"
+                statusCode: 404
             })
         }
 

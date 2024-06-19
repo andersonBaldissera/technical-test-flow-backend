@@ -14,8 +14,7 @@ export class CategoriesService {
         if(!product) {
             throw new HttpError({
                 message: "Produto não encontrado ou não existe",
-                statusCode: 404,
-                location: "/product/findById"
+                statusCode: 404
             })
         }
 

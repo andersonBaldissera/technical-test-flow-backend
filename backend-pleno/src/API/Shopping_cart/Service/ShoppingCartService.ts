@@ -14,8 +14,7 @@ export class ShoppingCartService {
         if(!product) {
             throw new HttpError({
                 message: "Produto não encontrado ou não existe",
-                statusCode: 404,
-                location: "/product/findById"
+                statusCode: 404
             })
         }
 

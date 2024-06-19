@@ -4,11 +4,11 @@ import { ICreateProductDTO } from "../DTO/createProductDTO";
 export class Product {
     private readonly id: string;
 
-    nome: string;
-    descricao: string;
-    categoria_id: string;
-    preco: string;
-    quantidade: number;
+    name: string;
+    description: string;
+    category_id: string;
+    price: string;
+    amount: number;
 
     constructor(props: Omit<ICreateProductDTO, "id">, id?: string) {
         Object.assign(this, props);

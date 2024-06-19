@@ -15,7 +15,11 @@ export class ItemCartController {
         try {
             const product = await this.itemCartService.getById(id);
 
-            return res.status(200).json(product);
+            return res.status(200).json({
+                code: 200,
+                message: "Produto deletado com sucesso",
+                product
+            });
 
         } catch (error) {
             return res.status(400).json(error);
@@ -34,7 +38,11 @@ export class ItemCartController {
         try {
             const newProduct = await this.itemCartService.create(product);
 
-            return res.status(200).json(newProduct);
+            return res.status(200).json({
+                code: 200,
+                message: "Produto deletado com sucesso",
+                newProduct
+            });
 
         } catch (error) {
             return res.status(400).json(error);
@@ -49,19 +57,19 @@ export class ItemCartController {
 
             return res.status(200).json({
                 code: 200,
-                message: "Produto deletado com sucesso",
-                location: "/product/delete"
+                message: "Produto deletado com sucesso"
             });
 
         } catch (error) {
             if (error instanceof HttpError) {
                 return res.status(error.statusCode).json({
                     message: error.message,
-                    stattusCode: error.statusCode
+                    statusCode: error.statusCode
                 });
             }
+
+            return res.status(500).send();
         }
-        
     }
 
     async update(req: Request, res: Response): Promise<Response> {

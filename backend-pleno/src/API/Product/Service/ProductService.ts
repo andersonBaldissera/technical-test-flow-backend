@@ -15,7 +15,6 @@ export class ProductService {
             throw new HttpError({
                 message: "Produto não encontrado ou não existe",
                 statusCode: 404,
-                location: "/product/findById"
             })
         }
 

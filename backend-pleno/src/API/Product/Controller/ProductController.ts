@@ -49,8 +49,7 @@ export class ProductController {
 
             return res.status(200).json({
                 code: 200,
-                message: "Produto deletado com sucesso",
-                location: "/product/delete"
+                message: "Produto deletado com sucesso"
             });
 
         } catch (error) {

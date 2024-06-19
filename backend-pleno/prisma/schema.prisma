@@ -1,0 +1,74 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                  String        @id
+  name                String
+  email               String        @unique
+  password            String
+  shopping_cart_id    String?       @unique
+
+  shopping_cart       ShoppingCart?  @relation(fields: [shopping_cart_id], references: [id])
+
+  @@map("user")
+}
+
+model ShoppingCart {
+  id              String     @id
+  user_id         String?
+  item_cart_id    String
+  total           Int
+
+  user            User?
+  item_cart       ItemCart[]
+
+  @@map("shopping_cart")
+}
+
+model ItemCart {
+  id                   String    @id
+  shopping_cart_id     String
+  product_id           String
+  amount               Int
+  total                Int
+
+  shopping_cart        ShoppingCart   @relation(fields: [shopping_cart_id], references: [id])
+  product              Product        @relation(fields: [product_id], references: [id])
+
+  @@map("itens_cart")
+}
+
+model Category {
+  id          String          @id
+  nome        String
+  descricao   String
+  products    Product[]
+
+  @@map("categories")
+}
+
+model Product {
+  id                String      @id
+  name              String
+  description       String
+  category_id       String
+  price             String
+  amount            Int
+
+  categories        Category[]
+  item_cart         ItemCart[]
+
+  @@map("products")
+}

@@ -6,7 +6,7 @@ export class ShoppingCart {
     private readonly id: string;
 
     user_id: string;
-    item_cart_id: String;
+    item_cart_id: string;
     total: number;
 
     constructor(props: Omit<IShoppingCartDTO, "id">, id?: string) {

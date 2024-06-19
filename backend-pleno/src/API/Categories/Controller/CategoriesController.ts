@@ -53,7 +53,6 @@ export class CategoriesController {
             return res.status(200).json({
                 code: 200,
                 message: "Categoria deletado com sucesso",
-                location: "/categories/delete"
             });
 
         } catch (error) {

@@ -1,11 +1,9 @@
 export class HttpError {
     public message: string;
     public statusCode: number;
-    public location: string;
 
-    constructor({ message, statusCode, location }) {
+    constructor({ message, statusCode }) {
         this.message = message;
         this.statusCode = statusCode;
-        this.location = location;
     }
 }

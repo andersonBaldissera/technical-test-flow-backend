@@ -15,7 +15,6 @@ export class ItemCartService {
             throw new HttpError({
                 message: "Produto não encontrado ou não existe",
                 statusCode: 404,
-                location: "/product/findById"
             })
         }
 
@@ -36,7 +35,7 @@ export class ItemCartService {
         return product;
     }
 
-    async delete(id: string): Promise<void> {
+    async delete(id: string): Promise<any> {
 
         await this.itemCartRepository.getById(id);
 

@@ -5,9 +5,10 @@ import { Product } from "../../Product/Entity/Product";
 export class ItemCart {
     private readonly id: string;
 
-    shopping_id: string;
+    shopping_cart_id: string;
     product_id: string;
     amount: number;
+    total: number;
 
     constructor(props: Omit<IItemCartDTO, "id">, id?: string) {
         Object.assign(this, props);
