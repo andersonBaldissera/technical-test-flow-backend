@@ -1,9 +1,9 @@
-import { User } from "../Entity/User";
+import { UserBean } from "../Entity/User";
 
 export interface IUserRepository {
-    findById(id: string): Promise<User | null>;
-    findList(id: string): Promise<Array<User> | null>;
-    create(data: User): Promise<User>;
+    getById(id: string): Promise<UserBean | null>;
+    findList(id: string): Promise<Array<UserBean> | null>;
+    create(data: UserBean): Promise<UserBean>;
     delete(id: string): Promise<void>;
-    update(data: User): Promise<User>;
+    update(data: UserBean): Promise<UserBean>;
 }

@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { UserService } from '../Service/UserService';
 import { HttpError } from '../../../Utils/ErrorHandler';
+import { Prisma } from '@prisma/client';
 
 export class UserController {
     constructor(
@@ -17,6 +18,7 @@ export class UserController {
             
         } catch (error) {
             return res.status(400).json({
+                code: error.stattusCode,
                 message: error.message
             });
         }
@@ -32,22 +34,29 @@ export class UserController {
             
         } catch (error) {
             return res.status(400).json({
+                code: error.stattusCode,
                 message: error.message
             });
         }
     }
 
     async create(req: Request, res: Response): Promise<Response> {
-        const { user } = req.body;
+        const user = req.body;
 
         try {
             await this.userService.create(user);
 
-            return res.status(201).send();
-        } catch (error) {
-            return res.status(400).json({
-                message: error.message
+            return res.status(201).json({
+                code: 200,
+                message: "Usuário criado com sucesso"
             });
+        } catch (error) {
+            if(error instanceof Prisma.PrismaClientValidationError) {
+                    return res.status(400).json({
+                        code: 400,
+                        message: "Um dos Dados Fornecidos é Inválido",
+                    });
+            }
         }
     }
 
@@ -62,24 +71,27 @@ export class UserController {
             });
 
         } catch (error) {
-            if (error instanceof HttpError) {
-                return res.status(error.statusCode).json({
+                return res.status(400).json({
+                    code: 400,
                     message: error.message,
-                    stattusCode: error.statusCode
                 });
-            }
         }
     }
 
     async update(req: Request, res: Response): Promise<Response> {
-        const { user } = req.body;
+        const user = req.body;
 
         try {
             await this.userService.update(user);
 
-            return res.status(201).send();
+            return res.status(201).send({
+                code: 201,
+                message: "Usuário atualizado com sucesso"
+            });
+
         } catch (error) {
             return res.status(400).json({
+                code: error.stattusCode,
                 message: error.message
             });
         }

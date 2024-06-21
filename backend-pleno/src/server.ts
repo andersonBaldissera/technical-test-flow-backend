@@ -1,5 +1,5 @@
 import { app } from "./app";
 
-app.listen(3333)
+app.listen(9000)
 
-console.log("Server online on port 333");
+console.log("Server online on port 9000");

@@ -1,9 +1,8 @@
-import { uuid } from "uuidv4";
+import { v4 as uuidv4 } from "uuid";
 import { IItemCartDTO } from "../DTO/IItemCartDTO";
-import { Product } from "../../Product/Entity/Product";
 
-export class ItemCart {
-    private readonly id: string;
+export class ItemCartBean {
+    readonly id: string;
 
     shopping_cart_id: string;
     product_id: string;
@@ -14,7 +13,7 @@ export class ItemCart {
         Object.assign(this, props);
 
         if(!id) {
-            this.id = uuid();
+            this.id = uuidv4();
         }
     }
 }

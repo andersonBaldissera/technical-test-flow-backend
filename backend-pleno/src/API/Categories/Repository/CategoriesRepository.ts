@@ -1,26 +1,51 @@
-import { Categories } from "../Entity/Categories";
+import { Category } from "@prisma/client";
+import { prismaClient } from "../../../config/prismaClient";
+import { CategoriesBean } from "../Entity/Categories";
 import { ICategoriesRepository } from "./ICategoriesRepository";
 
 export class CategoriesRepository implements ICategoriesRepository {
-    getById(id: string): Promise<Categories> {
-        throw new Error("Method not implemented.");
+    async getById(id: string): Promise<CategoriesBean> {
+        const category: CategoriesBean = await prismaClient.category.findUnique({
+            where: { id: id },
+            include: {
+                products: true
+            }
+          });
+
+          return category;
     }
 
-    //? Implementar com filtro por categoria e faixa de preço
-    findList(filter: string): Promise<Categories[]> {
-        throw new Error("Method not implemented.");
+    async getList(): Promise<CategoriesBean[]> {
+        const categories: Array<CategoriesBean> = await prismaClient.category.findMany(
+            {
+                include: { products: true }
+            }
+        );
+
+        return categories;
     }
 
-    create(data: Categories): Promise<Categories> {
-        throw new Error("Method not implemented.");
+    async create(data: Category): Promise<CategoriesBean> {
+        const newCategory: CategoriesBean = await prismaClient.category.create({
+            data
+          });
+
+          return newCategory;
     }
 
-    delete(id: string): Promise<void> {
-        throw new Error("Method not implemented.");
+    async delete(id: string): Promise<void> {
+        const category: CategoriesBean = await prismaClient.category.delete({
+            where: { id: id }
+          });
     }
 
-    update(data: Categories): Promise<Categories> {
-        throw new Error("Method not implemented.");
+    async update(data: Category): Promise<CategoriesBean> {
+        const categoryUpdated: CategoriesBean = await prismaClient.category.update({
+            where: { id: data.id },
+            data
+          });
+
+          return categoryUpdated;
     }
     
 }

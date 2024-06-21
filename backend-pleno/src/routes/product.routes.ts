@@ -6,7 +6,7 @@ const productRoutes = Router();
 const auth = new Authentication();
 
 productRoutes.get('/', auth.Auth, (req, res)=> {
-    return productController.findList(req, res);
+    return productController.getList(req, res);
 });
 
 productRoutes.get('/:id', auth.Auth, (req, res)=> {

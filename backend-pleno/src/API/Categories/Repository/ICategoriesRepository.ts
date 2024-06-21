@@ -1,9 +1,10 @@
-import { Categories } from "../Entity/Categories";
+import { Category } from "@prisma/client";
+import { CategoriesBean } from "../Entity/Categories";
 
 export interface ICategoriesRepository {
-    getById(id: string): Promise<Categories | null>;
-    findList(filterBy: string): Promise<Array<Categories> | null>;
-    create(data: Categories): Promise<Categories>;
+    getById(id: string): Promise<CategoriesBean | null>;
+    getList(): Promise<Array<CategoriesBean> | null>;
+    create(data: Category): Promise<CategoriesBean>;
     delete(id: string): Promise<void>;
-    update(data: Categories): Promise<Categories>;
+    update(data: Category): Promise<CategoriesBean>;
 }

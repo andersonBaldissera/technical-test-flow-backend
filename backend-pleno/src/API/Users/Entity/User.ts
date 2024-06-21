@@ -1,17 +1,20 @@
-import { uuid } from "uuidv4";
+import { v4 as uuidv4 } from "uuid";
+import { ShoppingCartBean } from "../../Shopping_cart/Entity/ShoppingCart";
 
-export class User {
+export class UserBean {
     readonly id: string;
 
     name: string;
     email: string;
     password?: string;
 
-    constructor(props: Omit<User, 'id'>, id?: string) {
+    shopping_cart?: ShoppingCartBean
+
+    constructor(props: Omit<UserBean, 'id'>, id?: string) {
          Object.assign(this, props);
 
          if(!id) {
-            this.id = uuid();
+            this.id = uuidv4();
          }
     }
 }

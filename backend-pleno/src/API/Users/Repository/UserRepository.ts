@@ -1,24 +1,45 @@
-import { User } from "../Entity/User";
+import { UserBean } from "../Entity/User";
 import { IUserRepository } from "./IUserRepository";
+import { prismaClient } from "../../../config/prismaClient";
+import { HttpError } from "../../../Utils/ErrorHandler";
+import { User } from "@prisma/client";
 
 export class UserRepository implements IUserRepository {
-    findById(id: string): Promise<User> {
-        throw new Error("Method not implemented.");
+    async getById(id: string): Promise<UserBean> {
+        const user = await prismaClient.user.findUnique({
+            where: { id },
+            include: {
+                shopping_cart: true
+            }
+        });
+        
+        return user;
     }
     
-    findList(id: string): Promise<User[]> {
+    async findList(id: string): Promise<UserBean[]> {
         throw new Error("Method not implemented.");
     }
 
-    create(data: User): Promise<User> {
-        throw new Error("Method not implemented.");
+    async create(data: User): Promise<UserBean> {
+        const user: UserBean = await prismaClient.user.create({
+            data
+          });
+
+        return user;
     }
 
-    delete(id: string): Promise<void> {
-        throw new Error("Method not implemented.");
+    async delete(id: string): Promise<void> {
+        const user = await prismaClient.user.delete({
+            where: { id: id }
+        })
     }
 
-    update(data: User): Promise<User> {
-        throw new Error("Method not implemented.");
+    async update(data: User): Promise<UserBean> {
+        const userUpdated = await prismaClient.user.update({
+            where: { id: data.id },
+            data
+        });
+
+        return userUpdated
     }
 }

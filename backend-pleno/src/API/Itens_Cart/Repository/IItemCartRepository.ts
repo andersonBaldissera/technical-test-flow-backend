@@ -1,9 +1,7 @@
-import { ItemCart } from "../Entity/ItemCart";
+import { ItemCartBean } from "../Entity/ItemCart";
 
 export interface IItemCartRepository {
-    getById(id: string): Promise<ItemCart | null>;
-    findList(filterBy: string): Promise<Array<ItemCart>>;
-    create(data: ItemCart): Promise<ItemCart>;
-    delete(id: string): Promise<void>;
-    update(data: ItemCart): Promise<ItemCart>;
+    getItem(id: string): Promise<ItemCartBean>;
+    remove(id: string): Promise<void>;
+    update(itemCartUpdated: any, itemCartID: string): Promise<ItemCartBean>;
 }

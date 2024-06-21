@@ -1,20 +1,23 @@
-import { uuid } from "uuidv4";
+import { v4 as uuidv4 } from "uuid";
 import { ICreateProductDTO } from "../DTO/createProductDTO";
+import { IItemCartDTO } from "../../Itens_Cart/DTO/IItemCartDTO";
 
-export class Product {
-    private readonly id: string;
+export class ProductBean {
+    readonly id: string;
 
     name: string;
     description: string;
-    category_id: string;
-    price: string;
+    price: number;
     amount: number;
+
+    item_cart?: IItemCartDTO;
+
 
     constructor(props: Omit<ICreateProductDTO, "id">, id?: string) {
         Object.assign(this, props);
 
         if(!id) {
-            this.id = uuid();
+            this.id = uuidv4();
         }
     }
 }

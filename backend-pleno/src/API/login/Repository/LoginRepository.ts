@@ -1,20 +1,16 @@
-import { User } from "../../Users/Entity/User";
+import { prismaClient } from "../../../config/prismaClient";
+import { UserBean } from "../../Users/Entity/User";
 import { ILoginRepository } from "./ILoginRepository";
 
 
 export class LoginRepository implements ILoginRepository {
-    login(id: string): Promise<any> {
-    /*    const user: User = await prismaClient.user.findUnique({
+    async login(email: string): Promise<UserBean> {
+        const user: UserBean = await prismaClient.user.findUnique({
             where: { email: email }
         })
  
-        if (user) {
-            return Promise.resolve(user);
-        } else {
-            return null
-        }
-            */
-           return Promise.resolve(null)
+        return Promise.resolve(user); 
+        
     }
 
     

@@ -3,4 +3,5 @@ export interface ICreateUserDTO {
     name: string;
     email: string;
     password: string;
+    shopping_cart_id?: string;
 }

@@ -5,24 +5,20 @@ import Authentication from "../middleware/auth";
 const shoppingCartRoutes = Router();
 const auth = new Authentication();
 
-shoppingCartRoutes.get('/', auth.Auth, (req, res)=> {
-    return shoppingCartController.findList(req, res);
+shoppingCartRoutes.get('/getCart', auth.Auth, (req, res)=> {
+    return shoppingCartController.getCart(req, res);
 });
 
-shoppingCartRoutes.get('/:id', auth.Auth, (req, res)=> {
-    return shoppingCartController.getById(req, res);
+shoppingCartRoutes.post('/add', auth.Auth, (req, res)=> {
+    return shoppingCartController.add(req, res);
 });
 
-shoppingCartRoutes.post('/create', auth.Auth, (req, res)=> {
-    return shoppingCartController.create(req, res);
+shoppingCartRoutes.delete('/remove/:id', auth.Auth, (req, res)=> {
+    return shoppingCartController.remove(req, res);
 });
 
-shoppingCartRoutes.delete('/delete/:id', auth.Auth, (req, res)=> {
-    return shoppingCartController.delete(req, res);
-});
-
-shoppingCartRoutes.patch('/update', auth.Auth, (req, res)=> {
-    return shoppingCartController.update(req, res);
+shoppingCartRoutes.post('/checkout', auth.Auth, (req, res)=> {
+    return shoppingCartController.checkout(req, res);
 });
 
 export { shoppingCartRoutes };

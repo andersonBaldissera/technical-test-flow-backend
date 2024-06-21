@@ -1,18 +1,18 @@
-import { uuid } from "uuidv4";
+import { v4 as uuidv4 } from "uuid";
 import { ICategoriesDTO } from "../DTO/CategoriesDTO";
 
 
-export class Categories {
-    private readonly id: string;
+export class CategoriesBean {
+    readonly id: string;
 
-    nome: string;
-    descricao: string;
+    name: string;
+    description: string;
 
     constructor(props: Omit<ICategoriesDTO, "id">, id?: string) {
         Object.assign(this, props);
 
         if(!id) {
-            this.id = uuid();
+            this.id = uuidv4();
         }
     }
 }

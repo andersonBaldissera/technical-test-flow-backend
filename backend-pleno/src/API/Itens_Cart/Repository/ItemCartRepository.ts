@@ -1,26 +1,35 @@
-import { ItemCart } from "../Entity/ItemCart";
+import { ItemCartBean } from "../Entity/ItemCart";
 import { IItemCartRepository } from "./IItemCartRepository";
+import { prismaClient } from "../../../config/prismaClient";
+import { ItemCart } from "@prisma/client";
 
 export class ItemCartRepository implements IItemCartRepository {
-    getById(id: string): Promise<ItemCart> {
-        throw new Error("Method not implemented.");
+    getItem(id: string): Promise<any> {
+        const item = prismaClient.itemCart.findFirst({
+            where: { id: id },
+            include: {
+                shopping_cart: true,
+                product: true
+            }
+        })
+
+        return item;
+    }
+    async remove(id: string): Promise<void> {
+        const itemCartRemoved = await prismaClient.itemCart.delete({
+            where: { id: id }
+        });
     }
 
-    //? Implementar com filtro por categoria e faixa de preço
-    findList(filter: string): Promise<ItemCart[]> {
-        throw new Error("Method not implemented.");
-    }
+    async update(itemCartUpdated: any, itemCartID: string): Promise<ItemCartBean> {
+        const updatedItemCart = await prismaClient.itemCart.update({
+            where: {
+                id: itemCartID
+            },
+            data: itemCartUpdated
+        })
 
-    create(data: ItemCart): Promise<ItemCart> {
-        throw new Error("Method not implemented.");
-    }
-
-    delete(id: string): Promise<void> {
-        throw new Error("Method not implemented.");
-    }
-
-    update(data: ItemCart): Promise<ItemCart> {
-        throw new Error("Method not implemented.");
+        return updatedItemCart;
     }
     
 }

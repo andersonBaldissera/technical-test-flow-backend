@@ -1,6 +1,7 @@
+import { Category } from "@prisma/client";
 import { HttpError } from "../../../Utils/ErrorHandler";
 import { ICategoriesDTO } from "../DTO/CategoriesDTO";
-import { Categories } from "../Entity/Categories";
+import { CategoriesBean } from "../Entity/Categories";
 import { ICategoriesRepository } from "../Repository/ICategoriesRepository";
 
 export class CategoriesService {
@@ -8,7 +9,7 @@ export class CategoriesService {
         private CategoriesRepository: ICategoriesRepository
     ) { }
 
-    async getById(id: string): Promise<Categories> {
+    async getById(id: string): Promise<CategoriesBean> {
         const product = await this.CategoriesRepository.getById(id);
 
         if(!product) {
@@ -22,14 +23,14 @@ export class CategoriesService {
     }
 
     //? Implementar busca com filtro de categoria e faixa preço
-    async findList(filterBy: string): Promise<Categories[]> {
-        const product = await this.CategoriesRepository.findList(filterBy);
+    async getList(): Promise<CategoriesBean[]> {
+        const product = await this.CategoriesRepository.getList();
 
         return product;
     }
 
-    async create(data: ICategoriesDTO): Promise<Categories> {
-        const newCategories = new Categories(data)
+    async create(data: ICategoriesDTO): Promise<CategoriesBean> {
+        const newCategories = new CategoriesBean(data) as Category
         const categories = await this.CategoriesRepository.create(newCategories);
 
         return categories;
@@ -42,9 +43,8 @@ export class CategoriesService {
         await this.CategoriesRepository.delete(id);
     }
 
-    async update(data: ICategoriesDTO): Promise<Categories> {
-        const product = new Categories(data, data.id);
-        console.log(product);
+    async update(data: ICategoriesDTO): Promise<CategoriesBean> {
+        const product: CategoriesBean = new CategoriesBean(data, data.id);     
         
         const productUpdated = await this.CategoriesRepository.update(product);
 
